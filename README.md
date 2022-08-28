@@ -1,5 +1,6 @@
 # :cookie: Setup-On-Linux
-
+Setup-On-Linux - repository is designed to install all the necessary programs to work on Linux. 
+> :warning: Tested only for `Zorin OS 16.1`
 
 ## Preparation
 ```shell
