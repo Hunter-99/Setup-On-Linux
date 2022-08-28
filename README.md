@@ -1,93 +1,144 @@
-# :wrench: Setup-On-Linux
+# :cookie: Setup-On-Linux
 
-### Git
+
+## Preparation
+```shell
+sudo apt update 
+sudo apt upgrade -y
+```
+
+## Git
 ```shell
 sudo apt-get -y install git
-# sudo tar -xf .ssh.tar.xz -C ${HOME}
 git config --global user.name "Your UserName"
 git config --global user.password "Your Password"
 git config --global user.email "Your e-mail"
 ```
----
 
-### Python 3.10
+## Python 3.8
 ```shell
 sudo apt install python-is-python3
-sudo apt install -y python3.10-venv
 alias python=python3
+```
+### Python venv
+```shell
+sudo apt install -y python3.8-venv
+```
+### Pip
+```shell
+sudo apt intall -y pip
 sudo pip install --upgrade pip
 ```
----
-
 ### Poetry
 ```shell
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 ```
 
----
-
-### Docker
+## Docker
 ```shell
-sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-sudo apt install -y docker-ce
-sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+## Docker-compose 1.29.2
+```shell
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+```
+
+## Use docker & docker-compose without `sudo`
+```shell
 sudo chmod 666 /var/run/docker.sock
 sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
 
----
-
-### Slack
+## ZSH
 ```shell
-sudo snap install slack
+sudo apt-get install -y git-core zsh fonts-powerline
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+chsh -s $(which zsh)
 ```
 
----
-
-### PyCharm
+### Install zsh-autosuggestions
+- Install the zsh-autosuggestions:
+    ```shell
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    ```
+- Add plugin `~/.zshrc`:
+    ```shell
+    vi ~/.zshrc
+    ...
+    plugins=(git)
+    plugins=(zsh-autosuggestions) # Add this line. under the "plugins"
+    source $ZSH/oh-my-zsh.sh
+    ```
+## AWS CLI
 ```shell
-sudo snap install pycharm-professional --classic
-```
-
----
-### Telegram Desktop
-```shell
-sudo snap install telegram-desktop
-```
-
----
-### VSCode
-```shell
-sudo apt install software-properties-common apt-transport-https wget
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt install code
-```
-
----
-### Postman
-```shell
-sudo snap install postman
-```
-
----
-### VLC
-```shell
-sudo snap install vlc
-```
-
----
-
-### AWS CLI
-```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
 aws configure
 ```
 
----
+## Apps
+
+-  Slack
+    ```shell
+    sudo snap install slack
+    ```
+
+- PyCharm
+    ```shell
+    sudo snap install pycharm-professional --classic
+    ```
+
+- Telegram Desktop
+    ```shell
+    sudo snap install telegram-desktop
+    ```
+
+- VSCode
+    ```shell
+    sudo apt install software-properties-common apt-transport-https wget
+    wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    sudo apt install code
+    ```
+
+- Postman
+    ```shell
+    sudo snap install postman
+    ```
+
+- VLC
+    ```shell
+    sudo snap install vlc
+    ```
+
+- Spotify
+    ```shell
+    sudo snap install spotify
+    ```
+
+- Notion
+    ```shell
+    sudo snap install notion-snap
+    ```
+
+- Zoom
+    ```shell
+     sudo snap install zoom-client
+     ```
