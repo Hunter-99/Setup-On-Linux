@@ -44,6 +44,9 @@ sudo apt-get install \
     lsb-release
 
 sudo mkdir -p /etc/apt/keyrings
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 echo \
